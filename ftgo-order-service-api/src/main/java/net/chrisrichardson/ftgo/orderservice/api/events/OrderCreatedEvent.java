@@ -5,10 +5,11 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+// 订单创建事件
 public class OrderCreatedEvent implements OrderDomainEvent {
-  private OrderDetails orderDetails;
-  private Address deliveryAddress;
-  private String restaurantName;
+  private OrderDetails orderDetails; // 订单详情
+  private Address deliveryAddress; // 送货地址
+  private String restaurantName; // 餐厅名称
 
   private OrderCreatedEvent() {
   }

@@ -16,7 +16,6 @@ import net.chrisrichardson.ftgo.orderservice.sagas.reviseorder.ReviseOrderSagaDa
 import net.chrisrichardson.ftgo.orderservice.web.MenuItemIdAndQuantity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -65,14 +64,18 @@ public class OrderService {
     this.meterRegistry = meterRegistry;
   }
 
+  // 添加订单服务
   @Transactional
   public Order createOrder(long consumerId, long restaurantId, DeliveryInformation deliveryInformation,
                            List<MenuItemIdAndQuantity> lineItems) {
+    // 查找餐馆信息
     Restaurant restaurant = restaurantRepository.findById(restaurantId)
             .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
 
+    // 创建订单项
     List<OrderLineItem> orderLineItems = makeOrderLineItems(lineItems, restaurant);
 
+    // 创建订单实体
     ResultWithDomainEvents<Order, OrderDomainEvent> orderAndEvents =
             Order.createOrder(consumerId, restaurant, deliveryInformation, orderLineItems);
 

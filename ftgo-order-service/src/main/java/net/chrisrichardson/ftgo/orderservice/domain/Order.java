@@ -1,7 +1,6 @@
 package net.chrisrichardson.ftgo.orderservice.domain;
 
 import io.eventuate.tram.events.aggregates.ResultWithDomainEvents;
-import net.chrisrichardson.ftgo.common.Address;
 import net.chrisrichardson.ftgo.common.Money;
 import net.chrisrichardson.ftgo.common.UnsupportedStateTransitionException;
 import net.chrisrichardson.ftgo.orderservice.api.events.*;
@@ -9,21 +8,21 @@ import net.chrisrichardson.ftgo.orderservice.api.events.*;
 import javax.persistence.*;
 import java.util.List;
 
-import static net.chrisrichardson.ftgo.orderservice.api.events.OrderState.APPROVED;
-import static net.chrisrichardson.ftgo.orderservice.api.events.OrderState.APPROVAL_PENDING;
-import static net.chrisrichardson.ftgo.orderservice.api.events.OrderState.REJECTED;
-import static net.chrisrichardson.ftgo.orderservice.api.events.OrderState.REVISION_PENDING;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+import static net.chrisrichardson.ftgo.orderservice.api.events.OrderState.*;
 
 @Entity
 @Table(name = "orders")
 @Access(AccessType.FIELD)
 public class Order {
 
+  // 创建订单实体
   public static ResultWithDomainEvents<Order, OrderDomainEvent>
   createOrder(long consumerId, Restaurant restaurant, DeliveryInformation deliveryInformation, List<OrderLineItem> orderLineItems) {
+    // 创建订单对象
     Order order = new Order(consumerId, restaurant.getId(), deliveryInformation, orderLineItems);
+    // 订单创建事件
     List<OrderDomainEvent> events = singletonList(new OrderCreatedEvent(
             new OrderDetails(consumerId, restaurant.getId(), orderLineItems,
                     order.getOrderTotal()),
@@ -34,7 +33,7 @@ public class Order {
 
   @Id
   @GeneratedValue
-  private Long id;
+  private Long id;  /****/
 
   @Version
   private Long version;

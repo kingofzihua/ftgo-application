@@ -29,8 +29,14 @@ public class Ticket {
   @Enumerated(EnumType.STRING)
   private TicketState state;
 
+  /**
+   * 上一个状态
+   */
   private TicketState previousState;
 
+  /***
+   * 餐馆编号
+   */
   private Long restaurantId;
 
   @ElementCollection

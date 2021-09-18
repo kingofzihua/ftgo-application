@@ -5,13 +5,14 @@ import net.chrisrichardson.ftgo.common.Address;
 import java.time.LocalDateTime;
 import java.util.List;
 
+// 创建订单的请求
 public class CreateOrderRequest {
 
-  private long restaurantId;
-  private long consumerId;
-  private LocalDateTime deliveryTime;
-  private List<LineItem> lineItems;
-  private Address deliveryAddress;
+  private long restaurantId; // 餐馆编号
+  private long consumerId; // 客户编号
+  private LocalDateTime deliveryTime;// 派送事件
+  private List<LineItem> lineItems; // 订单项
+  private Address deliveryAddress; // 派送地址
 
   public CreateOrderRequest(long consumerId, long restaurantId, Address deliveryAddress, LocalDateTime deliveryTime, List<LineItem> lineItems) {
     this.restaurantId = restaurantId;

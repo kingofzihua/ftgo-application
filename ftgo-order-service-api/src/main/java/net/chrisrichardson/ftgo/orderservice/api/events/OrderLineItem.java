@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 
+// 订单子项
 @Embeddable
 public class OrderLineItem {
 
